@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var items: [Item] = []
-    
+    var store: ItemStore!
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
