@@ -8,10 +8,16 @@
 
 import UIKit
 
-class Loanee: NSObject {
+class Loanee: NSObject, NSCoding {
 
         var name: String
         var contactNumber: String?
+    
+    // Protocol requires having keys for variables
+    enum Keys: String {
+        case name = "name"
+        case contactNumber = "contactNumber"
+    }
         
         init(name: String, contactNumber: String?) {
             
@@ -24,4 +30,16 @@ class Loanee: NSObject {
             self.name = name
             self.contactNumber = contactNumber
         }
+    // Protocol requires an encode method to encode our variables based on the Key
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(contactNumber, forKey: "contactNumber")
+    }
+    
+    // Protocol requires an init method which acts as a decoder for our variables based on the Key
+    required init?(coder aDecoder: NSCoder) {
+        name = aDecoder.decodeObject(forKey: "name") as! String
+        contactNumber = aDecoder.decodeObject(forKey: "contactNumber") as? String
+        super.init()
+    }
 }
